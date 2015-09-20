@@ -77,13 +77,18 @@ export class Kaminari {
     this.body = body || null;
     this.header = {};
 
+    //
     for (let key of Object.keys(header || {})) {
       this.header[key.toLowerCase()] = header[key];
     }
 
+    //
     this.fullUrl = __createFullUrl(this.url, this.param, this.query);
+
+    //
     this.realBody = this.body;
 
+    // if body is an object or an array, regard it as JSON
     if (Object.prototype.toString.call(this.body) === '[object Object]' ||
         Object.prototype.toString.call(this.body) === '[object Array]') {
       this.realBody = JSON.stringify(this.body);
@@ -97,7 +102,7 @@ export class Kaminari {
     return new Kaminari(Object.assign({}, this, options));
   }
 
-  simplify() {
+  simple() {
     const method = this.method === 'GET' ? 'GET' : 'POST';
     const header = {};
 
