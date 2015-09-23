@@ -62,7 +62,7 @@ const __createFullUrl = (base, param, query) => {
   return url;
 };
 
-export class Kaminari {
+export class Yomogi {
   constructor(options) {
     for (const key of Object.keys(options)) {
       this[key] = options[key];
@@ -99,7 +99,7 @@ export class Kaminari {
   }
 
   assign(options) {
-    return new Kaminari(Object.assign({}, this, options));
+    return new Yomogi(Object.assign({}, this, options));
   }
 
   simple() {
@@ -119,7 +119,7 @@ export class Kaminari {
       header['content-type'] = SIMPLE_ALLOW_CONTENT_TYPES[0];
     }
 
-    return new Kaminari({
+    return new Yomogi({
       method,
       url: this.url,
       query: this.query,
@@ -134,4 +134,4 @@ export class Kaminari {
   }
 }
 
-export default Kaminari;
+export default Yomogi;

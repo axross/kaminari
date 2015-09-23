@@ -84,9 +84,9 @@ var __createFullUrl = function __createFullUrl(base, param, query) {
   return url;
 };
 
-var Kaminari = (function () {
-  function Kaminari(options) {
-    _classCallCheck(this, Kaminari);
+var Yomogi = (function () {
+  function Yomogi(options) {
+    _classCallCheck(this, Yomogi);
 
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
@@ -127,6 +127,7 @@ var Kaminari = (function () {
     this.body = body || null;
     this.header = {};
 
+    //
     var _iteratorNormalCompletion3 = true;
     var _didIteratorError3 = false;
     var _iteratorError3 = undefined;
@@ -137,6 +138,8 @@ var Kaminari = (function () {
 
         this.header[key.toLowerCase()] = header[key];
       }
+
+      //
     } catch (err) {
       _didIteratorError3 = true;
       _iteratorError3 = err;
@@ -153,8 +156,11 @@ var Kaminari = (function () {
     }
 
     this.fullUrl = __createFullUrl(this.url, this.param, this.query);
+
+    //
     this.realBody = this.body;
 
+    // if body is an object or an array, regard it as JSON
     if (Object.prototype.toString.call(this.body) === '[object Object]' || Object.prototype.toString.call(this.body) === '[object Array]') {
       this.realBody = JSON.stringify(this.body);
       this.header = Object.assign({
@@ -163,14 +169,14 @@ var Kaminari = (function () {
     }
   }
 
-  _createClass(Kaminari, [{
+  _createClass(Yomogi, [{
     key: 'assign',
     value: function assign(options) {
-      return new Kaminari(Object.assign({}, this, options));
+      return new Yomogi(Object.assign({}, this, options));
     }
   }, {
-    key: 'simplify',
-    value: function simplify() {
+    key: 'simple',
+    value: function simple() {
       var method = this.method === 'GET' ? 'GET' : 'POST';
       var header = {};
 
@@ -208,7 +214,7 @@ var Kaminari = (function () {
         header['content-type'] = SIMPLE_ALLOW_CONTENT_TYPES[0];
       }
 
-      return new Kaminari({
+      return new Yomogi({
         method: method,
         url: this.url,
         query: this.query,
@@ -224,8 +230,8 @@ var Kaminari = (function () {
     }
   }]);
 
-  return Kaminari;
+  return Yomogi;
 })();
 
-exports.Kaminari = Kaminari;
-exports['default'] = Kaminari;
+exports.Yomogi = Yomogi;
+exports['default'] = Yomogi;

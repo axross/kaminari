@@ -1,10 +1,10 @@
 {
-  "name": "kaminari",
+  "name": "yomogi",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./distributions/Yomogi.js",
   "scripts": {
-    "babel": "babel ./sources --out-dir ./modules",
+    "babel": "babel ./sources --out-dir ./distributions",
     "test": "mocha -u bdd -R spec --compilers es6:babel/register ./tests/**/*.spec.es6"
   },
   "repository": {

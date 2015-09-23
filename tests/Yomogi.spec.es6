@@ -1,9 +1,9 @@
 import expect from 'expect.js';
-import Kaminari from '../sources/Kaminari';
+import Yomogi from '../sources/Yomogi';
 
-describe('Kaminari', () => {
-  describe('Kaminari\'s constructor', () => {
-    it('should return an instance of Kaminari', () => {
+describe('Yomogi', () => {
+  describe('Yomogi\'s constructor', () => {
+    it('should return an instance of Yomogi', () => {
       expect().fail();
     });
 
@@ -41,10 +41,10 @@ describe('Kaminari', () => {
   });
 });
 
-// describe('Kaminari', () => {
-//   describe('Kaminari#constructor()', () => {
+// describe('Yomogi', () => {
+//   describe('Yomogi#constructor()', () => {
 //     it('should options as it is this.xxx', () => {
-//       const kaminari = new Kaminari({
+//       const kaminari = new Yomogi({
 //         url: '/path/to/api',
 //         aaa: '123',
 //         bbb: '456',
@@ -87,7 +87,7 @@ describe('Kaminari', () => {
 //           output: '/path/to/api/1234/children/:wrongid',
 //         }
 //       ].forEach(({ input, output }) => {
-//         const kaminari = new Kaminari(input);
+//         const kaminari = new Yomogi(input);
 //
 //         expect(kaminari.fullUrl).to.be(output);
 //       });
@@ -112,7 +112,7 @@ describe('Kaminari', () => {
 //           output: 'GET',
 //         }
 //       ].forEach(({ input, output }) => {
-//         const kaminari = new Kaminari({
+//         const kaminari = new Yomogi({
 //           method: input,
 //           url: '/path/to/api',
 //         });
