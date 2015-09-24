@@ -29,11 +29,11 @@ const __validateUrl = url => {
   return url;
 };
 
-const __sanitizeMethod = method => {
+const __validateMethod = method => {
   const upperCased = String(method).toUpperCase();
 
   if (METHODS.indexOf(upperCased) === -1) {
-    return METHODS[0];
+    throw new TypeError(`method must be a String of : ${METHODS.join(', ')}`);
   }
 
   return upperCased;
@@ -63,14 +63,14 @@ const __createFullUrl = (base, param, query) => {
 };
 
 export class Yomogi {
-  constructor(options) {
+  constructor(options = {}) {
     for (const key of Object.keys(options)) {
       this[key] = options[key];
     }
 
     const { method, url, query, param, body, header } = options;
 
-    this.method = __sanitizeMethod(method);
+    this.method = __validateMethod(method);
     this.url = __validateUrl(url);
     this.query = query || {};
     this.param = param || {};

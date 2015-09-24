@@ -31,14 +31,14 @@ kaminari.get('/path/to/api/:id', {
 ## Tests
 
 - Yomogi#constructor()
-    - Yomogiインスタンスが返る
-    - xxxがthis.xxxとして受け継がれる
-    - methodは大文字にされる
+    - Yomogiインスタンスが返る -> やらんでもええやろ
     - methodは存在しないものの場合はエラーが発生する
     - urlはStringでない場合はエラーが発生する
+    - methodは大文字にされる
     - this.fullUrlはurl, param, queryをもとに正しいものが生成される
     - this.headerは小文字化される
     - bodyがObjectまたはArrayの場合、this.realBodyはJSON文字列になり、content-typeに'application/json'が設定される(上書きはされない)
+    - xxxがthis.xxxとして受け継がれる
 - Yomogi#assign()
     - Yomogiインスタンスが返る
     - thisとoptionsがマージされた新しいインスタンスが返る

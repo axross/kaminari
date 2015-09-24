@@ -3,28 +3,78 @@ import Yomogi from '../sources/Yomogi';
 
 describe('Yomogi', () => {
   describe('Yomogi\'s constructor', () => {
-    it('should return an instance of Yomogi', () => {
-      expect().fail();
-    });
-
-    it('should some member of options as it is member of this', () => {
-      expect().fail();
-    });
-
-    it('should method be upper case', () => {
-      expect().fail();
-    });
-
     it('should occur an exception if method does not exist', () => {
-      expect().fail();
+      expect(() => {
+        new Yomogi();
+      }).to.throwException(/method must be a String of : GET, POST, PUT, DELETE, HEAD, OPTIONS/);
+
+      expect(() => {
+        new Yomogi({});
+      }).to.throwException(/method must be a String of : GET, POST, PUT, DELETE, HEAD, OPTIONS/);
+
+      expect(() => {
+        new Yomogi({ method: null });
+      }).to.throwException(/method must be a String of : GET, POST, PUT, DELETE, HEAD, OPTIONS/);
+
+      expect(() => {
+        new Yomogi({ method: 'JET' });
+      }).to.throwException(/method must be a String of : GET, POST, PUT, DELETE, HEAD, OPTIONS/);
     });
 
     it('should occur an exception if url is not a String', () => {
-      expect().fail();
+      expect(() => new Yomogi({
+        method: 'GET',
+      })).to.throwException(/url must be a String/);
+
+      expect(() => {
+        new Yomogi({
+          method: 'GET',
+          url: 12,
+        });
+      }).to.throwException(/url must be a String/);
+    });
+
+    it('should method be upper case', () => {
+      expect(new Yomogi({
+        method: 'get',
+        url: '/path/to/api',
+      }).method).to.be('GET');
+
+      expect(new Yomogi({
+        method: 'delete',
+        url: '/path/to/api',
+      }).method).to.be('DELETE');
+
+      expect(new Yomogi({
+        method: 'POST',
+        url: '/path/to/api',
+      }).method).to.be('POST');
     });
 
     it('should header be lower case', () => {
-      expect().fail();
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        header: {
+          'Accept': 'application/json',
+        },
+      }).header).to.eql({
+        'accept': 'application/json',
+      });
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        header: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'token': 'a1B2c3D4e5F6',
+        },
+      }).header).to.eql({
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'token': 'a1B2c3D4e5F6',
+      });
     });
 
     it('should fullUrl is created with url, param and query', () => {
@@ -36,6 +86,10 @@ describe('Yomogi', () => {
     });
 
     it('should realBody is JSON string and \'content-type\' of header is \'application/json\' if body is a Plain object or an instance of Array', () => {
+      expect().fail();
+    });
+
+    it('should some member of options as it is member of this', () => {
       expect().fail();
     });
   });
