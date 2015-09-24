@@ -115,15 +115,61 @@ describe('Yomogi', () => {
     });
 
     it('should realBody is copy of body', () => {
-      expect()
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        body: 'abc',
+      }).realBody).to.be('abc');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        body: null,
+      }).realBody).to.be(null);
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+      }).realBody).to.be(null);
     });
 
     it('should realBody is JSON string and \'content-type\' of header is \'application/json\' if body is a Plain object or an instance of Array', () => {
-      expect().fail();
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        body: {
+          a: 1,
+          b: 'two',
+          c: true,
+        },
+      }).realBody).to.be('{"a":1,"b":"two","c":true}');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        body: {
+          foo: new Date(0),
+          bar: undefined,
+        },
+      }).realBody).to.be('{"foo":"1970-01-01T00:00:00.000Z"}');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        body: {},
+      }).realBody).to.be('{}');
     });
 
     it('should some member of options as it is member of this', () => {
-      expect().fail();
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        foo: 'bar',
+        baz: 'qux',
+      });
+
+      expect(yomogi.foo).to.be('bar');
+      expect(yomogi.baz).to.be('qux');
     });
   });
 });
