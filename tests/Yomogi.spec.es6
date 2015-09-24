@@ -78,11 +78,44 @@ describe('Yomogi', () => {
     });
 
     it('should fullUrl is created with url, param and query', () => {
-      expect().fail();
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api/article/:articleId/comment/:commentId',
+        param: {
+          articleId: 21,
+          commentId: 3,
+        },
+        query: {
+          filter: ['photo', 'video'],
+          order: 'desc',
+        },
+      }).fullUrl).to.be('/path/to/api/article/21/comment/3?filter=photo&filter=video&order=desc');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api/page/:page',
+        param: {
+          page: 12,
+        },
+      }).fullUrl).to.be('/path/to/api/page/12');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+        query: {
+          offset: 60,
+          limit: 20,
+        },
+      }).fullUrl).to.be('/path/to/api?offset=60&limit=20');
+
+      expect(new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+      }).fullUrl).to.be('/path/to/api');
     });
 
     it('should realBody is copy of body', () => {
-      expect().fail();
+      expect()
     });
 
     it('should realBody is JSON string and \'content-type\' of header is \'application/json\' if body is a Plain object or an instance of Array', () => {
