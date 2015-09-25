@@ -172,4 +172,43 @@ describe('Yomogi', () => {
       expect(yomogi.baz).to.be('qux');
     });
   });
+
+  describe('Yomogi#assign()', () => {
+    it('should return an instance of Yomogi that it is an another reference', () => {
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+      });
+
+      expect(yomogi.assign()).to.eql(yomogi);
+      expect(yomogi.assign()).not.to.be(yomogi);
+    });
+
+    it('should return it is merged options to origin', () => {
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api/article/:articleId/comment/:commentId',
+        param: {
+          articleId: 21,
+          commentId: 3,
+        },
+        query: {
+          offset: 60,
+          limit: 20,
+        },
+      });
+
+      const assigned = yomogi.assign({
+        param: {
+          articleId: 45
+        },
+        query: {
+          limit: 40,
+        },
+      });
+
+      expect(assigned.param).to.eql({ articleId: 45 });
+      expect(assigned.query).to.eql({ limit: 40 });
+    });
+  });
 });
