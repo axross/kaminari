@@ -371,4 +371,16 @@ describe('Yomogi', () => {
       });
     });
   });
+
+  describe('Yomogi#fetch()', () => {
+    it('should occur an exception if fetch() is not defined', () => {
+      expect(() => {
+        new Yomogi({
+          method: 'GET',
+          url: '/path/to/api',
+        })
+          .fetch()
+      }).to.throwException(/fetch\(\) function is not defined/);
+    });
+  });
 });

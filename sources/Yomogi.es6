@@ -1,5 +1,7 @@
-import fetch from 'isomorphic-fetch';
 import querystring from 'querystring';
+
+const global = Function('return this');
+const fetch = global.fetch;
 
 const METHODS = [
   'GET',
@@ -130,6 +132,10 @@ export class Yomogi {
   }
 
   fetch() {
+    if (typeof fetch !== 'function') {
+      throw new ReferenceError('fetch() function is not defined');
+    }
+
     return fetch(this.url, this);
   }
 }
