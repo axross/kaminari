@@ -125,7 +125,7 @@ export class Yomogi {
       query: this.query,
       param: this.param,
       body: this.body,
-      header: this.header,
+      header,
     });
   }
 
