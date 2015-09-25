@@ -10,13 +10,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _isomorphicFetch = require('isomorphic-fetch');
-
-var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-
 var _querystring = require('querystring');
 
 var _querystring2 = _interopRequireDefault(_querystring);
+
+var global = Function('return this');
+var _fetch = global.fetch;
 
 var METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'];
 var SIMPLE_ALLOW_HEADERS = ['accept', 'accept-language', 'content-language', 'content-type'];
@@ -30,11 +29,11 @@ var __validateUrl = function __validateUrl(url) {
   return url;
 };
 
-var __sanitizeMethod = function __sanitizeMethod(method) {
+var __validateMethod = function __validateMethod(method) {
   var upperCased = String(method).toUpperCase();
 
   if (METHODS.indexOf(upperCased) === -1) {
-    return METHODS[0];
+    throw new TypeError('method must be a String of : ' + METHODS.join(', '));
   }
 
   return upperCased;
@@ -85,7 +84,9 @@ var __createFullUrl = function __createFullUrl(base, param, query) {
 };
 
 var Yomogi = (function () {
-  function Yomogi(options) {
+  function Yomogi() {
+    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
     _classCallCheck(this, Yomogi);
 
     var _iteratorNormalCompletion2 = true;
@@ -120,10 +121,10 @@ var Yomogi = (function () {
     var body = options.body;
     var header = options.header;
 
-    this.method = __sanitizeMethod(method);
+    this.method = __validateMethod(method);
     this.url = __validateUrl(url);
-    this.query = query || {};
     this.param = param || {};
+    this.query = query || {};
     this.body = body || null;
     this.header = {};
 
@@ -220,13 +221,17 @@ var Yomogi = (function () {
         query: this.query,
         param: this.param,
         body: this.body,
-        header: this.header
+        header: header
       });
     }
   }, {
     key: 'fetch',
     value: function fetch() {
-      return (0, _isomorphicFetch2['default'])(this.url, this);
+      if (typeof _fetch !== 'function') {
+        throw new ReferenceError('fetch() function is not defined');
+      }
+
+      return _fetch(this.url, this);
     }
   }]);
 
