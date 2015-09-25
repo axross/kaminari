@@ -253,5 +253,53 @@ describe('Yomogi', () => {
         url: '/path/to/api'
       });
     });
+
+    it('should remove headers not accepted for the CORS Simple Request', () => {
+      [
+        // We want more cases...
+        {
+          input: {
+            'accept': 'text/plain',
+            'accept-language': 'ja-JP',
+            'content-language': 'ja-JP',
+            'content-type': 'text/plain',
+          },
+          output: {
+            'accept': 'text/plain',
+            'accept-language': 'ja-JP',
+            'content-language': 'ja-JP',
+            'content-type': 'text/plain',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-language': 'ja-JP',
+            'content-type': 'text/plain',
+            'yomogi-authentication-code': 'a1s2d3f4',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-language': 'ja-JP',
+            'content-type': 'text/plain',
+          },
+        },
+        {
+          input: {
+            'accept-encoding': 'gzip, deflate, sdch',
+            'connection': 'keep-alive',
+            'content-length': 25,
+            'origin': 'https://yomogi.com',
+          },
+          output: {},
+        },
+      ].forEach(({ input, output }) => {
+        expect(new Yomogi({
+          method: 'GET',
+          url: '/path/to/api',
+          header: input,
+        }).simple().header).to.eql(output);
+      });
+    });
   });
 });
