@@ -301,5 +301,74 @@ describe('Yomogi', () => {
         }).simple().header).to.eql(output);
       });
     });
+
+    it('should force "content-type" of header to "text/plain" if it is not accepted for the CORS Simple Request', () => {
+      [
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-type': 'text/plain',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-type': 'text/plain',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-type': 'application/x-www-form-urlencoded',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-type': 'multipart/form-data',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-type': 'multipart/form-data',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-type': 'foo',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-type': 'text/plain',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+            'content-type': 'multipart/form-data-is-what',
+          },
+          output: {
+            'accept': 'text/plain',
+            'content-type': 'text/plain',
+          },
+        },
+        {
+          input: {
+            'accept': 'text/plain',
+          },
+          output: {
+            'accept': 'text/plain',
+          },
+        },
+      ].forEach(({ input, output }) => {
+        expect(new Yomogi({
+          method: 'GET',
+          url: '/path/to/api',
+          header: input,
+        }).simple().header).to.eql(output);
+      });
+    });
   });
 });
