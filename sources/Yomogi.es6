@@ -72,8 +72,8 @@ export class Yomogi {
 
     this.method = __validateMethod(method);
     this.url = __validateUrl(url);
-    this.query = query || {};
     this.param = param || {};
+    this.query = query || {};
     this.body = body || null;
     this.header = {};
 

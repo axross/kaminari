@@ -28,6 +28,45 @@ kaminari.get('/path/to/api/:id', {
   });
 ```
 
+## API
+
+### Yomogi.get(url: string, options: object)
+### Yomogi.post(url: string, options: object)
+### Yomogi.put(url: string, options: object)
+### Yomogi.delete(url: string, options: object)
+### Yomogi.head(url: string, options: object)
+### Yomogi.options(url: string, options: object)
+
+
+
+```javascript
+Yomogi.get('/path/to/api/page/:page', {
+  param: {
+    page: 3,
+  },
+  query: {
+    sortBy: 'id',
+    order: 'desc',
+  },
+});
+```
+
+#### options
+
+##### options.method
+##### options.url
+##### options.params
+##### options.query
+##### options.body
+##### options.header
+##### options.xxx
+
+### Yomogi#assign()
+
+### Yomogi#simple()
+
+### Yomogi#fetch()
+
 ## Tests
 
 - Yomogi#constructor()
