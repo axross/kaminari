@@ -5,9 +5,9 @@ Yomogi is thin wrapper of `fetch()`.
 ## Example
 
 ```javascript
-import kaminari from 'kaminari';
+import Yomogi from 'agent';
 
-kaminari.get('/path/to/api/:id', {
+Yomogi.get('/path/to/api/:id', {
   query: { offset: 40, limit: 20 },
   param: { id: 3 },
   body: {
