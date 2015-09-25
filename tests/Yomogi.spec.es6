@@ -382,5 +382,33 @@ describe('Yomogi', () => {
           .fetch()
       }).to.throwException(/fetch\(\) function is not defined/);
     });
+
+    it('should call fetch() function with fullUrl and self that is used realBody and realHeader instead', done => {
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api/page/:page',
+        param: { page: 3 },
+        query: {
+          sort: 'id',
+          order: 'desc',
+        },
+        body: {
+          foo: 'bar',
+          baz: ['q', 'u', 'x'],
+        },
+        abc: 123,
+      });
+
+      global.fetch = (url, options) => {
+        expect(url).to.be(yomogi.fullUrl);
+        expect(options).to.eql(yomogi);
+
+        done();
+      };
+
+      yomogi.fetch();
+
+      delete global.fetch;
+    });
   });
 });

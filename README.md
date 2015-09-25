@@ -88,7 +88,7 @@ Yomogi.get('/path/to/api/page/:page', {
     - CORS Simple Requestとして許可されないContent-Typeは'text/plain'に補正される
 - Yomogi#fetch()
     - fetch()の結果が返る
-    - fetchにはfullUrl, thisが渡っていて、bodyとheaderにはrealBodyとrealHeaderが代わりに使われる
+    - fetchにはfullUrl, thisが渡っていて、bodyにはrealBodyが代わりに使われる
 - Yomogi.use()
     - Yomogi自身が返る
     - functionでない場合はエラーが発生する

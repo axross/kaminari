@@ -1,7 +1,6 @@
 import querystring from 'querystring';
 
-const global = Function('return this');
-const fetch = global.fetch;
+const global = Function('return this')();
 
 const METHODS = [
   'GET',
@@ -132,11 +131,11 @@ export class Yomogi {
   }
 
   fetch() {
-    if (typeof fetch !== 'function') {
+    if (typeof global.fetch !== 'function') {
       throw new ReferenceError('fetch() function is not defined');
     }
 
-    return fetch(this.url, this);
+    return global.fetch(this.fullUrl, this);
   }
 }
 
