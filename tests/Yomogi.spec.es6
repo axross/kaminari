@@ -133,7 +133,7 @@ describe('Yomogi', () => {
       }).realBody).to.be(null);
     });
 
-    it('should realBody is JSON string and \'content-type\' of header is \'application/json\' if body is a Plain object or an instance of Array', () => {
+    it('should realBody is JSON string and "content-type" of header is "application/json" if body is a Plain object or an instance of Array', () => {
       expect(new Yomogi({
         method: 'GET',
         url: '/path/to/api',
@@ -209,6 +209,49 @@ describe('Yomogi', () => {
 
       expect(assigned.param).to.eql({ articleId: 45 });
       expect(assigned.query).to.eql({ limit: 40 });
+    });
+  });
+
+  describe('Yomogi#simple()', () => {
+    it('should return an instance of Yomogi that it is an another reference', () => {
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api',
+      });
+
+      expect(yomogi.assign()).to.eql(yomogi);
+      expect(yomogi.assign()).not.to.be(yomogi);
+    });
+
+    it('should force method to "POST" if it is not "GET"', () => {
+      [
+        {
+          input: 'GET',
+          output: 'GET',
+        },
+        {
+          input: 'DELETE',
+          output: 'POST',
+        },
+        {
+          input: 'PUT',
+          output: 'POST',
+        },
+        {
+          input: 'head',
+          output: 'POST',
+        },
+      ].forEach(({ input, output }) => {
+        expect(new Yomogi({
+          method: input,
+          url: '/path/to/api',
+        }).simple().method).to.be(output);
+      });
+
+      const yomogi = new Yomogi({
+        method: 'GET',
+        url: '/path/to/api'
+      });
     });
   });
 });
